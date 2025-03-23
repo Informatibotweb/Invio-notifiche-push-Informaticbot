@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invio Notifiche Push Informaticbot</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #272d5f, #1e1e2f);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #ffffff15;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], textarea {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #ff6f61;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e65b50;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>Invia Notifica Push</h1>
+    <p>Scrivi il titolo e il testo della notifica:</p>
+
+    <input type="text" id="subject" placeholder="Titolo Notifica" required>
+    <textarea id="body" placeholder="Testo della notifica..." required></textarea>
+    <button onclick="sendToAll()">Invia a tutti</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    // === Inserisci qui le email dei clienti manualmente ===
+    const emailList = [
+      "osmanovicahmed33@gmail.com",
+      "katebraidic4@gmail.com",
+      "aminosmanovic74@gmail.com",
+        "mailpersitiah@gmail.com"
+      // Aggiungi altre email...
+    ];
+
+    // === Funzione per inviare la mail a tutti ===
+    function sendToAll() {
+      const subject = document.getElementById('subject').value.trim();
+      const body = document.getElementById('body').value.trim();
+      const status = document.getElementById('status');
+
+      if (subject === "" || body === "") {
+        status.innerText = "Compila entrambi i campi.";
+        status.style.color = "yellow";
+        return;
+      }
+
+      // Concatena tutte le email separate da virgola
+      const recipients = emailList.join(',');
+
+      // Costruisce il link mailto con tutti i destinatari
+      const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Apre il client email per l'invio
+      window.location.href = mailtoLink;
+
+      // Mostra messaggio di conferma
+      status.innerText = "Mail pronta all'invio per tutti i clienti.";
+      status.style.color = "lightgreen";
+
+      // Pulisce i campi
+      document.getElementById('subject').value = '';
+      document.getElementById('body').value = '';
+    }
+  </script>
+
+</body>
+</html>
